@@ -1,23 +1,24 @@
 #include "mpdclient.h"
 #include <stdexcept>
+#include <iostream>
+#include <fstream>
 
 MpdClient::MpdClient()
-: m_Notify ( "MP-Notify" )
-, m_Connection( nullptr )
+    : m_Notify("MP-Notify"), m_Connection(nullptr)
 {
     m_Connection = mpd_connection_new("localhost", 6600, 0);
-    if ( m_Connection == nullptr )
-        throw std::runtime_error( "Unable to establish MPD connection" );
+    if (m_Connection == nullptr)
+        throw std::runtime_error("Unable to establish MPD connection");
 }
 
 MpdClient::~MpdClient()
 {
-    mpd_connection_free( m_Connection );
+    mpd_connection_free(m_Connection);
 }
 
 void MpdClient::listen()
 {
-    while ( true )
+    while (true)
     {
         mpd_idle list = mpd_run_idle_mask( m_Connection, mpd_idle::MPD_IDLE_PLAYER );
 
