@@ -10,6 +10,10 @@ private:
     Notify m_Notify;
     mpd_connection * m_Connection;
 
+    std::string retrieveAllTag ( mpd_song * song, mpd_tag_type tag );
+    void notifyPlay();
+    void downloadArt( const std::filesystem::path & path );
+
 public:
     MpdClient();
     ~MpdClient();
